@@ -30,7 +30,6 @@ requirements:
   host:
     - nccl  # [cuda_compiler_version != "None"]
     - zlib
-    - libboost-python-devel
     - pytest
     - numpy
     - python
@@ -39,6 +38,7 @@ requirements:
     - pthread-stubs
     - eigen
     - libboost-devel
+    - libboost-python-devel
   run:
     - python
     - {{ pin_compatible('numpy') }}
@@ -47,7 +47,6 @@ requirements:
     - scipy
     - psutil
     - pyquaternion
-    - libboost-python-devel
 
 test:
   source_files:
