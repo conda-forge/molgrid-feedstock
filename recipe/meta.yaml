@@ -28,6 +28,7 @@ requirements:
   host:
     - nccl  # [cuda_compiler_version != "None"]
     - zlib
+    - pytest
     - numpy
     - python
     - setuptools
