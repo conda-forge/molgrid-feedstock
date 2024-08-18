@@ -20,20 +20,17 @@ build:
 
 requirements:
   build:
-    - numpy
-    - python
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
     - cmake
     - make  # [unix]
-    - pytest
   host:
     - nccl  # [cuda_compiler_version != "None"]
     - zlib
-    - pytest
     - numpy
     - python
+    - setuptools
     - openbabel >=3
     - pyquaternion
     - pthread-stubs
@@ -42,7 +39,6 @@ requirements:
     - libboost-python-devel
   run:
     - python
-    - {{ pin_compatible('numpy') }}
     - openbabel >=3
     - pytorch >=1.10.2
     - scipy
