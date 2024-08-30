@@ -13,27 +13,25 @@ source:
     - python-install-no-git.patch
 
 build:
-  number: 4
+  number: 5
   string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                # [cuda_compiler_version == "None"]
   skip: true  # [osx or win or (cuda_compiler_version in (undefined, 'None')) or cuda_compiler_version == "10.2"]
 
 requirements:
   build:
-    - numpy
-    - python
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
     - cmake
     - make  # [unix]
-    - pytest
   host:
     - nccl  # [cuda_compiler_version != "None"]
     - zlib
     - pytest
     - numpy
     - python
+    - setuptools
     - openbabel >=3
     - pyquaternion
     - pthread-stubs
@@ -42,7 +40,6 @@ requirements:
     - libboost-python-devel
   run:
     - python
-    - {{ pin_compatible('numpy') }}
     - openbabel >=3
     - pytorch >=1.10.2
     - scipy
