@@ -33,7 +33,7 @@ cmake ${CMAKE_ARGS} .. \
   -DBUILD_STATIC=0 \
   -DBUILD_SHARED=1
 
-make -j $CPU_COUNT
+VERBOSE=1 make -j $CPU_COUNT
 make install
 
 # NOTE(hadim): Install the python module from here since the CMake installation fails here.
