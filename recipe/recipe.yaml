@@ -48,7 +48,7 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ stdlib("c") }}
     - cmake
-    - ${{ "make" if unix }}
+    - ninja
     - git
   host:
     # cuda

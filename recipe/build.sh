@@ -23,7 +23,7 @@ export CMAKE_CXX_FLAGS="-Wall -Wno-unknown-pragmas -Wno-error=overloaded-virtual
 mkdir -p build/
 cd build/
 
-cmake ${CMAKE_ARGS} .. \
+cmake -GNinja ${CMAKE_ARGS} .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=$PREFIX \
   -DOPENBABEL3_INCLUDE_DIR=$PREFIX/include/openbabel3/ \
@@ -32,8 +32,8 @@ cmake ${CMAKE_ARGS} .. \
   -DBUILD_STATIC=0 \
   -DBUILD_SHARED=1
 
-VERBOSE=1 make -j $CPU_COUNT
-make install
+VERBOSE=1 ninja -j $CPU_COUNT
+ninja install
 
 # NOTE(hadim): Install the python module from here since the CMake installation fails here.
 $PYTHON python/setup.py install
