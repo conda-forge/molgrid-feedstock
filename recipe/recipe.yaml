@@ -1,0 +1,117 @@
+schema_version: 1
+
+context:
+  name: molgrid
+  version: 0.5.5
+  cuda: ${{ "true" if cuda_compiler_version != "None" else "false" }}
+  cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
+  string_prefix: ${{ cuda_build_string if cuda == "true" else "cpu_" }}
+  build_number: 5
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.zip
+  sha256: 9d1810145f21777a66f45827f539d5e829cd1c23e251268996741dd6551a5220
+  patches:
+    # NOTE: fix error:
+    # `error: 'virtual std::pair<int, float> libmolgrid::CallbackIndexTyper::get_atom_type_index(OpenBabel::OBAtom*) const' was hidden [-Werror=overloaded-virtual=]`
+    - cmake-fix.patch
+    # NOTE: git is not available to set the version number during python setup
+    - python-setup.patch
+
+build:
+  number: ${{ build_number }}
+  skip:
+    - osx
+    - win
+    - cuda == "true" and match(cuda_compiler_version, "<12")
+    - cuda != "true" # NOTE: molgrid is not supported on CPU
+  string: ${{ string_prefix }}py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
+  variant:
+    use_keys:
+      # use cuda from the variant config, e.g. to build multiple CUDA variants
+      - ${{ "cuda" if cuda == "true" }}
+    # this will down-prioritize the cuda variant versus other variants of the package
+    down_prioritize_variant: ${{ 1 if cuda == "true" else 0 }}
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - pytorch >=2.4
+        - numpy
+
+    - if: cuda == "true"
+      then:
+        - ${{ compiler('cuda') }}
+
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+    - cmake
+    - ninja
+    - git
+  host:
+    # cuda
+    - if: cuda == "true"
+      then:
+        - cuda-version ==${{ cuda_compiler_version }}
+        - libcublas-dev
+        - cudnn
+        - ${{ "nccl" if linux }}
+    # python
+    - python
+    - setuptools
+    - pip
+    - pytest
+    - numpy
+    # libraries
+    - zlib
+    - openbabel >=3
+    - pyquaternion
+    - pthread-stubs
+    - eigen
+    - libboost-devel
+    - libboost-python-devel
+  run:
+    - python
+    - numpy
+    - pyquaternion
+    - pytorch >=1.10.2
+    - openbabel >=3
+
+tests:
+  - python:
+      imports:
+        - molgrid
+  # NOTE: tests with pytest requires a GPU.
+  # So they are skipped here.
+  # - files:
+  #     source:
+  #       # NOTE: Only include a few test files since the test
+  #       # folder is large + some tests require a GPU.
+  #       - test/test_coordinateset.py
+  #       - test/test_numpy.py
+  #       - test/test_torch.py
+  #       - test/test_transform.py
+  #   requirements:
+  #     run:
+  #       - pytest
+  #   script:
+  #     - pytest -vvv test/
+
+about:
+  license: Apache-2.0
+  license_file: LICENSE.APACHE
+  summary: Comprehensive library for fast, GPU accelerated molecular gridding for deep learning workflows
+  homepage: https://gnina.github.io/libmolgrid/
+  repository: https://github.com/gnina/libmolgrid
+
+extra:
+  recipe-maintainers:
+    - hadim
