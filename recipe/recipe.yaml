@@ -16,6 +16,8 @@ source:
   url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.zip
   sha256: 9d1810145f21777a66f45827f539d5e829cd1c23e251268996741dd6551a5220
   patches:
+    # NOTE: fix error:
+    # `error: 'virtual std::pair<int, float> libmolgrid::CallbackIndexTyper::get_atom_type_index(OpenBabel::OBAtom*) const' was hidden [-Werror=overloaded-virtual=]`
     - cmake-fix.patch
 
 build:

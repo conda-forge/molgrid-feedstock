@@ -16,10 +16,6 @@ else
   exit 1
 fi
 
-# NOTE: fix the error:
-# `error: 'virtual std::pair<int, float> libmolgrid::CallbackIndexTyper::get_atom_type_index(OpenBabel::OBAtom*) const' was hidden [-Werror=overloaded-virtual=]`
-export CMAKE_CXX_FLAGS="-Wall -Wno-unknown-pragmas -Wno-error=overloaded-virtual"
-
 mkdir -p build/
 cd build/
 
