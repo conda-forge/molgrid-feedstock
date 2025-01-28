@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-NUMPY_INCLUDE_DIR=$(python -c "import numpy; print(numpy.get_include())")
+NUMPY_INCLUDE_DIR=$($PYTHON -c "import numpy; print(numpy.get_include())")
 
 if [[ ${cuda_compiler_version} != "None" ]]; then
   export NCCL_ROOT_DIR=$PREFIX
