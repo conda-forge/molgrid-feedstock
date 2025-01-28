@@ -43,7 +43,6 @@ requirements:
       then:
         - python
         - cross-python_${{ target_platform }}
-        - pytorch >=2.4
         - numpy
 
     - ${{ compiler('cuda') if cuda == "true" }}
@@ -54,6 +53,10 @@ requirements:
     - ninja
     - git
   host:
+    # cuda
+    - if: cuda == "true"
+      then:
+        - cuda-version ${{ cuda_compiler_version }}.*
     # python
     - python
     - setuptools
