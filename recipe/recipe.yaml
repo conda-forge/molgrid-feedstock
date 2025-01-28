@@ -84,6 +84,7 @@ requirements:
     - pyquaternion
     - pytorch >=1.10.2
     - openbabel >=3
+    - pytest
 
 tests:
   - python:
@@ -91,13 +92,16 @@ tests:
         - molgrid
   - files:
       source:
-        - test/
+        # NOTE: Only include a few test files since the test
+        # folder is large + some tests require a GPU.
+        - test/test_coordinateset.py
+        - test/test_numpy.py
+        - test/test_torch.py
+        - test/test_transform.py
     requirements:
       run:
-        - pip
         - pytest
     script:
-      # - ${{ "pytest -vvv test/" if cuda != "true" }}
       - pytest -vvv test/
 
 about:
