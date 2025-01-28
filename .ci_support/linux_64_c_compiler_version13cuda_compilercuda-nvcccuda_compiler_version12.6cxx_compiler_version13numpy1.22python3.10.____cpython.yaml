@@ -16,8 +16,6 @@ cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
 - '12.6'
-cudnn:
-- '9'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -28,8 +26,6 @@ libboost_devel:
 - '1.86'
 libboost_python_devel:
 - '1.86'
-nccl:
-- '2'
 numpy:
 - '1.22'
 pin_run_as_build:
