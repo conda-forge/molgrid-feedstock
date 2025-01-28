@@ -68,7 +68,6 @@ requirements:
     - python
     - setuptools
     - pip
-    - pytest
     - numpy
     # libraries
     - zlib
@@ -84,25 +83,26 @@ requirements:
     - pyquaternion
     - pytorch >=1.10.2
     - openbabel >=3
-    - pytest
 
 tests:
   - python:
       imports:
         - molgrid
-  - files:
-      source:
-        # NOTE: Only include a few test files since the test
-        # folder is large + some tests require a GPU.
-        - test/test_coordinateset.py
-        - test/test_numpy.py
-        - test/test_torch.py
-        - test/test_transform.py
-    requirements:
-      run:
-        - pytest
-    script:
-      - pytest -vvv test/
+  # NOTE: tests with pytest requires a GPU.
+  # So they are skipped here.
+  # - files:
+  #     source:
+  #       # NOTE: Only include a few test files since the test
+  #       # folder is large + some tests require a GPU.
+  #       - test/test_coordinateset.py
+  #       - test/test_numpy.py
+  #       - test/test_torch.py
+  #       - test/test_transform.py
+  #   requirements:
+  #     run:
+  #       - pytest
+  #   script:
+  #     - pytest -vvv test/
 
 about:
   license: Apache-2.0
