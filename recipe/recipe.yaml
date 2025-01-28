@@ -46,10 +46,7 @@ requirements:
         - pytorch >=2.4
         - numpy
 
-    - if: cuda == "true"
-      then:
-        - ${{ compiler('cuda') }}
-
+    - ${{ compiler('cuda') if cuda == "true" }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib("c") }}
@@ -57,13 +54,6 @@ requirements:
     - ninja
     - git
   host:
-    # cuda
-    - if: cuda == "true"
-      then:
-        - cuda-version ==${{ cuda_compiler_version }}
-        - libcublas-dev
-        - cudnn
-        - ${{ "nccl" if linux }}
     # python
     - python
     - setuptools
