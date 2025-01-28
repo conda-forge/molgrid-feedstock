@@ -19,6 +19,8 @@ source:
     # NOTE: fix error:
     # `error: 'virtual std::pair<int, float> libmolgrid::CallbackIndexTyper::get_atom_type_index(OpenBabel::OBAtom*) const' was hidden [-Werror=overloaded-virtual=]`
     - cmake-fix.patch
+    # NOTE: git is not available to set the version number during python setup
+    - python-setup.patch
 
 build:
   number: ${{ build_number }}
