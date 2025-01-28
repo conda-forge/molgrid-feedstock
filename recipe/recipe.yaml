@@ -17,7 +17,7 @@ source:
   sha256: 9d1810145f21777a66f45827f539d5e829cd1c23e251268996741dd6551a5220
 
 build:
-  number: ${{ build_number}}
+  number: ${{ build_number }}
   skip:
     - osx
     - win
