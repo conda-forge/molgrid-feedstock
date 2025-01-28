@@ -32,8 +32,8 @@ cmake -GNinja ${CMAKE_ARGS} .. \
   -DBUILD_STATIC=0 \
   -DBUILD_SHARED=1
 
-VERBOSE=1 ninja -j $CPU_COUNT
-ninja install
+ninja -v -j $CPU_COUNT
+ninja -v install
 
 # NOTE(hadim): Install the python module from here since the CMake installation fails here.
 $PYTHON python/setup.py install
