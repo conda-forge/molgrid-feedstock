@@ -13,7 +13,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.wip
+  url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.zip
   sha256: 9d1810145f21777a66f45827f539d5e829cd1c23e251268996741dd6551a5220
 
 build:
