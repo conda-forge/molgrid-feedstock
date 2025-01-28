@@ -32,4 +32,4 @@ ninja -v -j $CPU_COUNT
 ninja -v install
 
 # NOTE(hadim): Install the python module from here since the CMake installation fails here.
-$PYTHON -m pip install python/
+$PYTHON -m pip install -vvv --no-deps --no-build-isolation python/
