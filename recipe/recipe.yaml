@@ -44,6 +44,7 @@ requirements:
       then:
         - ${{ compiler('cuda') }}
 
+    - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib("c") }}
     - cmake
