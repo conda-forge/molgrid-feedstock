@@ -32,4 +32,4 @@ make -j $CPU_COUNT
 make install
 
 # NOTE(hadim): Install the python module from here since the CMake installation fails here.
-python python/setup.py install
+$PYTHON python/setup.py install
