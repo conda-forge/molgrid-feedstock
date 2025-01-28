@@ -13,8 +13,8 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: e732d13a96c2f374d57a73999119bef700172d392c195c751214aa6ac6680c3a
+  url: https://github.com/gnina/libmolgrid/archive/refs/tags/v${{ version }}.wip
+  sha256: 9d1810145f21777a66f45827f539d5e829cd1c23e251268996741dd6551a5220
 
 build:
   number: ${{ build_number}}
@@ -22,7 +22,7 @@ build:
     - osx
     - win
     - cuda == "true" and match(cuda_compiler_version, "<12")
-    # - cuda != "true"
+    - cuda != "true" # NOTE: molgrid is not supported on CPU
   string: ${{ string_prefix }}py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   variant:
     use_keys:
